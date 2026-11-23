@@ -1,0 +1,1 @@
+"""Game Deal Radar package."""

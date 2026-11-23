@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Elden Ring",
+    "target_price_usd": 0.0,
+    "enabled": true
+  },
+  {
+    "title": "Cyberpunk 2077",
+    "target_price_usd": 0.0,
+    "enabled": true
+  },
+  {
+    "title": "Hollow Knight",
+    "target_price_usd": 0.0,
+    "enabled": true
+  },
+  {
+    "title": "Stardew Valley",
+    "target_price_usd": 0.0,
+    "enabled": true
+  }
+]

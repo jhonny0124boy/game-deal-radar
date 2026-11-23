@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 48" width="250" height="48" fill="none">
+  <!-- Icon -->
+  <rect x="1" y="1" width="46" height="46" rx="12" fill="#EEF3FC" stroke="#DCE5F7" stroke-width="1.5"/>
+  <path d="M 31 12.2 A 14 14 0 1 0 38 24 H 25.5" stroke="#3157A4" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 24 16.5 A 7.5 7.5 0 0 0 16.5 24" stroke="#3157A4" stroke-opacity="0.32" stroke-width="2.6" stroke-linecap="round"/>
+  <circle cx="35.5" cy="12.5" r="4" fill="#16A36A"/>
+  <!-- Wordmark -->
+  <text x="60" y="23" fill="#172033" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18" font-weight="800" letter-spacing="-0.3">Game Deal Radar</text>
+  <text x="60" y="40" fill="#7B8494" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11.5" font-weight="500">遊戲特價與限免情報</text>
+</svg>
