@@ -232,10 +232,10 @@ DESIGN_SYSTEM_CSS = """
     border-color: #CBD5E1 !important;
 }
 
-/* Cover Image Aspect Ratio Lock */
+/* Cover Image Aspect Ratio Lock (Steam official 460x215 header ratio) */
 .gdr-cover-wrap {
     width: 100%;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 460 / 215;
     border-radius: 8px;
     overflow: hidden;
     background: var(--bg-muted);
