@@ -1,5 +1,6 @@
 """Game Deal Radar — Premium Light Gaming Deals Platform with Left Sidebar Navigation."""
 
+from datetime import datetime, timedelta, timezone
 from html import escape
 from pathlib import Path
 
@@ -78,6 +79,29 @@ with st.sidebar:
 
 if "toast_msg" in st.session_state:
     st.toast(st.session_state.pop("toast_msg"), icon="✅")
+
+# Auto-sync on first visit or when data is older than 6 hours
+AUTO_SYNC_INTERVAL = timedelta(hours=6)
+_check_repo = DealRepository(DB_PATH)
+try:
+    _last_sync = _check_repo.get_last_sync_time()
+finally:
+    _check_repo.close()
+
+_needs_auto_sync = _last_sync is None
+if _last_sync is not None:
+    _last_utc = _last_sync.replace(tzinfo=timezone.utc) if _last_sync.tzinfo is None else _last_sync.astimezone(timezone.utc)
+    if datetime.now(timezone.utc) - _last_utc > AUTO_SYNC_INTERVAL:
+        _needs_auto_sync = True
+
+if _needs_auto_sync and not st.session_state.get("auto_sync_attempted"):
+    st.session_state["auto_sync_attempted"] = True
+    with st.spinner("初次載入或資料超過 6 小時，正在自動同步最新價格與限免..."):
+        try:
+            run_sync(WATCHLIST_PATH, DB_PATH)
+            st.cache_data.clear()
+        except Exception as exc:
+            st.warning(f"自動同步暫時失敗（可稍後點擊左側手動同步）：{exc}")
 
 # Load current data
 watchlist = load_watchlist(WATCHLIST_PATH)

@@ -163,5 +163,18 @@ class DealRepository:
         """Delete all price snapshots for a game."""
         self.conn.execute("DELETE FROM price_snapshots WHERE query_title = ?", [query_title])
 
+    def get_last_sync_time(self):
+        """Return the latest fetched_at timestamp across price_snapshots and epic_free_games."""
+        row = self.conn.execute(
+            """
+            SELECT MAX(ts) FROM (
+                SELECT MAX(fetched_at) AS ts FROM price_snapshots
+                UNION ALL
+                SELECT MAX(fetched_at) AS ts FROM epic_free_games
+            )
+            """
+        ).fetchone()
+        return row[0] if row else None
+
     def close(self) -> None:
         self.conn.close()
