@@ -274,6 +274,33 @@ def fetch_deals_for_game(title: str, timeout: float = 15.0) -> list[GameDealSnap
             historical_low = None
 
         snapshots = parse_cheapshark_deals(title, deals_payload, historical_low=historical_low)
+
+        # 3. Fallback to official Steam Store Search result (covers Software like Wallpaper Engine & new releases)
+        if not snapshots and steam_match and steam_app_id:
+            price_info = steam_match.get("price") or {}
+            final_twd = (price_info.get("final") or 0) / 100
+            initial_twd = (price_info.get("initial") or final_twd * 100) / 100
+            fx_rate = fetch_usd_to_twd_rate()
+            discount_pct = (
+                round((1 - final_twd / initial_twd) * 100)
+                if initial_twd > 0 and final_twd < initial_twd
+                else 0
+            )
+            snapshots.append(
+                GameDealSnapshot(
+                    query_title=title,
+                    matched_title=display_name or title,
+                    store="Steam",
+                    current_price_usd=round(final_twd / fx_rate, 2),
+                    normal_price_usd=round(initial_twd / fx_rate, 2),
+                    historical_low_usd=None,
+                    discount_pct=discount_pct,
+                    deal_url=f"https://store.steampowered.com/app/{steam_app_id}",
+                    thumb_url=steam_match.get("tiny_image"),
+                )
+            )
+            return snapshots
+
         # Preserve Chinese display name if user searched in Chinese
         if display_name and any("\u4e00" <= ch <= "\u9fff" for ch in title):
             for snap in snapshots:
