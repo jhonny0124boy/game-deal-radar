@@ -42,7 +42,7 @@ flowchart LR
 
 ```bash
 # 1. 取得專案並安裝依賴
-git clone https://github.com/<你的帳號>/game-deal-radar.git
+git clone https://github.com/jhonny0124boy/game-deal-radar.git
 cd game-deal-radar
 pip install -r requirements.txt
 
@@ -55,11 +55,10 @@ streamlit run app.py
 
 ---
 
-## 免費部署上線（Streamlit Community Cloud）
+## 部署方式（Streamlit Community Cloud）
 
-1. 將 `game-deal-radar/` 推送到你的 GitHub 公開 Repository。
-2. 前往 [share.streamlit.io](https://share.streamlit.io/) 並使用 GitHub 登入。
-3. 點擊 **Create app** → 選擇你的 Repository、Branch（`main`）、Main file path 填 **`app.py`** → 點擊 **Deploy**。
-4. 約 1~2 分鐘即可取得永久公開網址，隨時在電腦或手機打開使用！
+本專案支援一鍵部署至 [Streamlit Community Cloud](https://share.streamlit.io/)：
 
-> **提示**：雲端免費環境在休眠重啟後會重置本地 DuckDB 暫存檔，打開網頁後點一次左側 **「同步最新資料」** 即可即時從公開 API 重新拉取最新特價與限免。
+1. Fork 或推送本 Repository 至 GitHub。
+2. 於 Streamlit Community Cloud 選擇該 Repository，Branch 設為 `main`，Main file path 設為 `app.py`。
+3. 部署完成後，點擊左側 **「同步最新資料」** 即可即時從公開 API 載入最新特價與限免資訊。
